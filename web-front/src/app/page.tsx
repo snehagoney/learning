@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Box,
 	Button,
@@ -14,54 +14,17 @@ import Grid from '@mui/material/GridLegacy'
 import { ArrowRightAlt } from 'node_modules/@mui/icons-material';
 
 
-const courses = [
-	{
-		title: 'Python Programming',
-		description: 'Learn Python from basics to advanced concepts.',
-		duration: '8 weeks',
-		level: 'Beginner',
-		image: '../Images/wrkng-person.jpg',
-	},
-	{
-		title: 'Web Development with React',
-		description: 'Build modern web applications using React.js.',
-		duration: '10 weeks',
-		level: 'Intermediate',
-		image: '../Images/wrkng-person.jpg',
-	},
-	{
-		title: 'Data Science Fundamentals',
-		description: 'Master data analysis and visualization techniques.',
-		duration: '12 weeks',
-		level: 'Intermediate',
-		image: '../Images/wrkng-person.jpg',
-	},
-	{
-		title: 'JavaScript Essentials',
-		description: 'Dive into JavaScript for dynamic web development.',
-		duration: '6 weeks',
-		level: 'Beginner',
-		image: '../Images/wrkng-person.jpg',
-	},
-	{
-		title: 'Machine Learning Basics',
-		description: 'Introduction to machine learning algorithms.',
-		duration: '10 weeks',
-		level: 'Advanced',
-		image: '../Images/wrkng-person.jpg',
-	},
-	{
-		title: 'Full Stack Development',
-		description: 'Become a full stack developer with MERN stack.',
-		duration: '14 weeks',
-		level: 'Advanced',
-		image: '../Images/wrkng-person.jpg',
-	},
-];
-
 
 
 export default function Home() {
+	const [courses, setCourses] = useState([]);
+
+	// Fetch courses from FastAPI backend
+	useEffect(() => {
+		fetch('http://127.0.0.1:8000/courses')
+			.then((res) => res.json())
+			.then((data) => setCourses(data));
+	}, []);
 
 	return (
 		<>
@@ -108,52 +71,48 @@ export default function Home() {
 					</Box>
 				</Container>
 			</Box>
-			<Box className="w-full py-9 bg-purple-100">
+			{/* Course Section */}
+			<Box className="py-6 bg-purple-100">
 				<Container>
-					<Box className="flex justify-between items-center mb-[50px]">
-						<Typography variant='h4' gutterBottom className='w-half'>
+					<Box className="flex justify-between mb-6">
+						<Typography variant="h4" gutterBottom>
 							Comprehensive technology solutions tailored to drive your business forward.
 						</Typography>
-						<Button variant="contained" endIcon={<ArrowRightAlt />} href="#contained-buttons">
+						<Button variant="contained" endIcon={<ArrowRightAlt />}>
 							View All Services
 						</Button>
 					</Box>
-					<Box className="p-4">
-						<Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
-							{courses.map((course, index) => (
-								<Grid item xs={2} sm={4} md={4} key={index}>
-									<Card className="max-w-sm mx-auto shadow-md">
-										<CardMedia
-											component="img"
-											className="h-36 object-cover"
-											image={course.image}
-											alt={course.title}
-										/>
-										<CardContent className="text-center">
-											<Typography variant="h6" className="font-bold !mb-3">
-												{course.title}
-											</Typography>
-											<Typography variant="body2" className="!mb-3">
-												{course.description}
-											</Typography>
-											<Typography variant="body2" className="!mb-3">
-												<strong>Duration:</strong> {course.duration}
-											</Typography>
-											<Typography variant="body2" className="!mb-3">
-												<strong>Level:</strong> {course.level}
-											</Typography>
-											<Button
-												variant="contained"
-												className="mt-2 !bg-white-500  !text-purple"
-											>
-												Enroll Now
-											</Button>
-										</CardContent>
-									</Card>
-								</Grid>
-							))}
-						</Grid>
-					</Box>
+					<Grid container spacing={3}>
+						{courses.map((course, index) => (
+							<Grid item xs={12} sm={6} md={4} key={index}>
+								<Card>
+									<CardMedia
+										component="img"
+										height="140"
+										image={`/Images/${course.image}`} // Adjust image path
+										alt={course.title}
+									/>
+									<CardContent>
+										<Typography variant="h6" gutterBottom>
+											{course.title}
+										</Typography>
+										<Typography variant="body2" gutterBottom>
+											{course.description}
+										</Typography>
+										<Typography variant="body2" gutterBottom>
+											<strong>Duration:</strong> {course.duration}
+										</Typography>
+										<Typography variant="body2" gutterBottom>
+											<strong>Level:</strong> {course.level}
+										</Typography>
+										<Button variant="contained" className="mt-2 bg-white text-purple">
+											Enroll Now
+										</Button>
+									</CardContent>
+								</Card>
+							</Grid>
+						))}
+					</Grid>
 				</Container>
 			</Box>
 			<Box className="w-full py-9">

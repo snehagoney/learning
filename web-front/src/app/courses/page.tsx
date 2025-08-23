@@ -9,9 +9,9 @@ import {
 	Button,
 	Typography,
 	Container,
-	Pagination
+	Pagination,
+	Grid,
 } from '@mui/material';
-import Grid from '@mui/material/GridLegacy'
 
 const courses = [
 	{
@@ -363,64 +363,64 @@ export default function Courses() {
 					Our Top Courses
 				</Typography>
 				<Box className="p-4">
-      <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {paginatedCourses.map((course, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index}>
-            <Card className="max-w-sm mx-auto shadow-md">
-              <CardMedia
-                component="img"
-                className="h-36 object-cover"
-                image={course.image}
-                alt={course.title}
-              />
-              <CardContent className="text-center">
-                <Typography variant="h6" className="!mb-2 font-bold">
-                  {course.title}
-                </Typography>
-                <Typography variant="body2" className="!mb-2">
-                  {course.description}
-                </Typography>
-                <Typography variant="body2" className="!mb-1">
-                  <strong>Duration:</strong> {course.duration}
-                </Typography>
-                <Typography variant="body2" className="!mb-1">
-                  <strong>Level:</strong> {course.level}
-                </Typography>
-                <Typography variant="body2" className="!mb-1">
-                  <strong>Front-End:</strong> {course.frontEnd}
-                </Typography>
-                <Typography variant="body2" className="!mb-1">
-                  <strong>Back-End:</strong> {course.backEnd}
-                </Typography>
-                <Typography variant="body2" className="!mb-2">
-                  <strong>Database:</strong> {course.database}
-                </Typography>
-                <Button
-                  variant="contained"
-                  className="mt-2 bg-blue-500 hover:bg-blue-600 text-white"
-                  onClick={() => alert(`Enroll in ${course.title}`)}
-                >
-                  Enroll Now
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      <Box className="flex justify-center mt-6">
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={handlePageChange}
-          className="bg-white rounded-lg shadow-md p-2"
-          classes={{
-            ul: '!flex !gap-2',
-            page: '!text-blue-500 !hover:bg-blue-100',
-            selected: '!bg-blue-500 !text-white',
-          }}
-        />
-      </Box>
-    </Box>
+					<Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
+						{paginatedCourses.map((course, index) => (
+							<Grid item xs={2} sm={4} md={4} key={index}>
+								<Card className="max-w-sm mx-auto shadow-md">
+									<CardMedia
+										component="img"
+										className="h-36 object-cover"
+										image={course.image}
+										alt={course.title}
+									/>
+									<CardContent className="text-center">
+										<Typography variant="h6" className="!mb-2 font-bold">
+											{course.title}
+										</Typography>
+										<Typography variant="body2" className="!mb-2">
+											{course.description}
+										</Typography>
+										<Typography variant="body2" className="!mb-1">
+											<strong>Duration:</strong> {course.duration}
+										</Typography>
+										<Typography variant="body2" className="!mb-1">
+											<strong>Level:</strong> {course.level}
+										</Typography>
+										<Typography variant="body2" className="!mb-1">
+											<strong>Front-End:</strong> {course.frontEnd}
+										</Typography>
+										<Typography variant="body2" className="!mb-1">
+											<strong>Back-End:</strong> {course.backEnd}
+										</Typography>
+										<Typography variant="body2" className="!mb-2">
+											<strong>Database:</strong> {course.database}
+										</Typography>
+										<Button
+											variant="contained"
+											className="mt-2 bg-blue-500 hover:bg-blue-600 text-white"
+											onClick={() => alert(`Enroll in ${course.title}`)}
+										>
+											Enroll Now
+										</Button>
+									</CardContent>
+								</Card>
+							</Grid>
+						))}
+					</Grid>
+					<Box className="flex justify-center mt-6">
+						<Pagination
+							count={totalPages}
+							page={page}
+							onChange={handlePageChange}
+							className="bg-white rounded-lg shadow-md p-2"
+							classes={{
+								ul: '!flex !gap-2',
+								page: '!text-blue-500 !hover:bg-blue-100',
+								selected: '!bg-blue-500 !text-white',
+							}}
+						/>
+					</Box>
+				</Box>
 			</Box>
 		</>
 	);
